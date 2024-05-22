@@ -1,0 +1,4660 @@
+{
+	"info": {
+		"_postman_id": "f8f97d61-dea1-4883-9eee-4ebfcc858280",
+		"name": "Hillel Qauto",
+		"description": "Api docs for hillel-qauto project  \n\n```\nTo get a session cookie you need to request api/auth/signup or api/auth/signin routes        and to receive successful response. In this way session cookie named \"sid\" will be set.\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15346176"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "logout",
+					"item": [
+						{
+							"name": "Ends up user session. Clears session cookies.",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/auth/logout",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User session successfully ended",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/auth/logout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"logout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "signup",
+					"item": [
+						{
+							"name": "Registers users in the system / Тест валидации massage",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Поле 'message' не пустое\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Поле 'message' имеет уведомление про ошибку Name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.include(\"Name is invalid\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Поле 'message' имеет уведомление про ошибку Email\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.include(\"Email is incorrect\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Ivan\",\n  \"lastName\": \"Kolsenyk\",\n  \"email\": \"kolesnik96vanya@gma7.com\",\n  \"password\": \"testPostman1\",\n  \"repeatPassword\": \"testPostman1\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Creates user, user profile and user settings, and authenticates created user.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"ffGZ.pffGZ.p\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signup",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"distanceUnits\": \"km\",\n    \"currency\": \"usd\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"ffGZ.pffGZ.p\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signup",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Registers users in the system. Test json schema",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Test json schema', function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var schema = {\r",
+											"        \"type\": \"object\",\r",
+											"    \"properties\": {\r",
+											"        \"status\": {\r",
+											"            \"type\": \"string\"\r",
+											"        },\r",
+											"        \"data\": {\r",
+											"            \"type\": \"object\",\r",
+											"            \"properties\": {\r",
+											"                \"userId\": {\r",
+											"                    \"type\": \"number\"\r",
+											"                },\r",
+											"                \"photoFilename\": {\r",
+											"                    \"type\": \"string\"\r",
+											"                },\r",
+											"                \"distanceUnits\": {\r",
+											"                    \"type\": \"string\"\r",
+											"                },\r",
+											"                \"currency\": {\r",
+											"                    \"type\": \"string\"\r",
+											"                }\r",
+											"            },\r",
+											"            \"required\": [\"userId\", \"photoFilename\", \"distanceUnits\", \"currency\"]\r",
+											"        }\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Ivan\",\n  \"lastName\": \"Kolsenyk\",\n  \"email\": \"kolesnik96vanya@gma18.com\",\n  \"password\": \"testPostman1\",\n  \"repeatPassword\": \"testPostman1\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Creates user, user profile and user settings, and authenticates created user.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"ffGZ.pffGZ.p\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signup",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"distanceUnits\": \"km\",\n    \"currency\": \"usd\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"ffGZ.pffGZ.p\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signup",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signup"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "signin",
+					"item": [
+						{
+							"name": "Registers users in the system.",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"kolesnik96vanya@gmail.com\",\n  \"password\": \"testPostman1\",\n  \"rememberMe\": true\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Authenticates user.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"rememberMe\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signin",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signin"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"distanceUnits\": \"km\",\n    \"currency\": \"usd\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"rememberMe\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/signin",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"signin"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "resetPassword",
+					"item": [
+						{
+							"name": "Sends password reset instructions to the specified email",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"kolesnik96vanya+1@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/resetPassword",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"resetPassword"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Authenticates user.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/resetPassword",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"resetPassword"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\"\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/auth/resetPassword",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"auth",
+												"resetPassword"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "current",
+					"item": [
+						{
+							"name": "Gets authenticated user data.",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/current",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"current"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/current",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"current"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"distanceUnits\": \"km\",\n    \"currency\": \"usd\",\n    \"photoFilename\": \"default-user.png\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/current",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"current"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "profile",
+					"item": [
+						{
+							"name": "Gets authenticated user profile data.",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/profile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"photoFilename\": \"default-user.png\",\n    \"name\": \"<string>\",\n    \"lastName\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"profile"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Edits user's profile Тест на изменения профиля",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Verify profile update response\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"\r",
+											"    // Очікувані значення, які ви замовляли\r",
+											"    var expectedValues = {\r",
+											"        \"name\": \"Ivan\",\r",
+											"        \"lastName\": \"Kolesnyk1\",\r",
+											"        \"dateBirth\": \"1996-06-26\" // Очікуємо лише дату без часу\r",
+											"    };\r",
+											"\r",
+											"    // Перевірка кожного поля відповіді\r",
+											"    pm.expect(jsonData.data.name).to.eql(expectedValues.name);\r",
+											"    pm.expect(jsonData.data.lastName).to.eql(expectedValues.lastName);\r",
+											"\r",
+											"    // Обрізаємо часову частину з дати народження\r",
+											"    var actualDate = jsonData.data.dateBirth.split('T')[0]; // Розділяємо дату і час і беремо перший елемент\r",
+											"    pm.expect(actualDate).to.eql(expectedValues.dateBirth);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Ivan\",\n  \"lastName\": \"Kolesnyk1\",\n  \"country\": \"UA\",\n  \"dateBirth\": \"1996-06-26\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/profile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"profile"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User profile was successfully updated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"dateBirth\": \"<dateTime>\",\n  \"photo\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"profile"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\",\n    \"photoFilename\": \"<string>\",\n    \"name\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"dateBirth\": \"<string>\",\n    \"country\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"dateBirth\": \"<dateTime>\",\n  \"photo\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"profile"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"country\": \"<string>\",\n  \"dateBirth\": \"<dateTime>\",\n  \"photo\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/profile",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"profile"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "settings",
+					"item": [
+						{
+							"name": "Gets authenticated user settings data.",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/settings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"settings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/settings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"settings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"currency\": \"usd\",\n    \"distanceUnits\": \"km\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/settings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"settings"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Edits user's settings",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"userId\": 114569,\n  \"currency\": \"eur\",\n  \"distanceUnits\": \"ml\",\n  \"photoFilename\": \"user-1713899553905.jpg\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/settings",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"settings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "User settings was successfully updated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"currency\": \"usd\",\n  \"distanceUnits\": \"km\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/settings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"settings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"currency\": \"usd\",\n    \"distanceUnits\": \"km\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"currency\": \"usd\",\n  \"distanceUnits\": \"km\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/settings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"settings"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"currency\": \"usd\",\n  \"distanceUnits\": \"km\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/settings",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"settings"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "resetPassword",
+					"item": [
+						{
+							"name": "{userId}",
+							"item": [
+								{
+									"name": "{token}",
+									"item": [
+										{
+											"name": "Sends an email with new password to the user's email",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/users/resetPassword/:userId/:token",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"users",
+														"resetPassword",
+														":userId",
+														":token"
+													],
+													"variable": [
+														{
+															"key": "userId",
+															"value": "<integer>",
+															"description": "(Required) Numeric user id"
+														},
+														{
+															"key": "token",
+															"value": "<string>",
+															"description": "(Required) Generated hash string which identifies reset password session and stored in database. Deleted after expiration."
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "Email was successfully sent",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/resetPassword/:userId/:token",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"resetPassword",
+																":userId",
+																":token"
+															],
+															"variable": [
+																{
+																	"key": "userId"
+																},
+																{
+																	"key": "token"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"status\": \"error\"\n}"
+												},
+												{
+													"name": "Route or entity not found",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "application/json"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/users/resetPassword/:userId/:token",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"users",
+																"resetPassword",
+																":userId",
+																":token"
+															],
+															"variable": [
+																{
+																	"key": "userId"
+																},
+																{
+																	"key": "token"
+																}
+															]
+														}
+													},
+													"status": "Not Found",
+													"code": 404,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "email",
+					"item": [
+						{
+							"name": "Changes user's email",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"kolesnik966vanya@gmail.com\",\n  \"password\": \"testPostman2\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/email",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"email"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Email was successfully changed",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/email",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"email"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/email",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"email"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"email\": \"<email>\",\n  \"password\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/email",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"email"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "password",
+					"item": [
+						{
+							"name": "Changes user's password Тест на изменения пароля",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Verify password change\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"\r",
+											"    // Очікувані значення, які ви замовляли при створенні користувача\r",
+											"    var expectedUserId = 117831; // Очікуємо, що userId залишиться таким же, як при створенні користувача\r",
+											"\r",
+											"    // Перевірка userId\r",
+											"    pm.expect(jsonData.data.userId).to.eql(expectedUserId);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"oldPassword\": \"testPostman2\",\n  \"password\": \"testPostman3\",\n  \"repeatPassword\": \"testPostman3\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/password",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"password"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Password was successfully changed",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"oldPassword\": \"<string>\",\n  \"password\": \"@dKewjL&\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/password",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"password"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"userId\": \"<integer>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"oldPassword\": \"<string>\",\n  \"password\": \"@dKewjL&\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/password",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"password"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"oldPassword\": \"<string>\",\n  \"password\": \"@dKewjL&\",\n  \"repeatPassword\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/users/password",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"password"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deletes user's account and current user session",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User account was successfully deleted",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\"\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "cars",
+			"item": [
+				{
+					"name": "brands",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Gets car brand by id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/brands/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"brands",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<integer>",
+													"description": "(Required) Numeric brand id"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successfully received the data",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/cars/brands/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cars",
+														"brands",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"ok\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"title\": \"<string>\",\n    \"logoFilename\": \"<string>\"\n  }\n}"
+										},
+										{
+											"name": "Route or entity not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/cars/brands/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cars",
+														"brands",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Gets car brands",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars/brands",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars",
+										"brands"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/brands",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"brands"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"logoFilename\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"title\": \"<string>\",\n      \"logoFilename\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/brands",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"brands"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "models",
+					"item": [
+						{
+							"name": "{id}",
+							"item": [
+								{
+									"name": "Gets car model by id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/models/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"models",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id",
+													"value": "<integer>",
+													"description": "(Required) Numeric model id"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Successfully received the data",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/cars/models/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cars",
+														"models",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carBrandId\": \"<integer>\",\n    \"title\": \"<string>\"\n  }\n}"
+										},
+										{
+											"name": "Route or entity not found",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/cars/models/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"cars",
+														"models",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Gets car models",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars/models",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars",
+										"models"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/models",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"models"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"carBrandId\": \"<integer>\",\n      \"title\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"carBrandId\": \"<integer>\",\n      \"title\": \"<string>\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/models",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												"models"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Gets current user car by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>",
+											"description": "(Required) Numeric car id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carBrandId\": \"<integer>\",\n    \"carModelId\": \"<integer>\",\n    \"initialMileage\": \"<integer>\",\n    \"updatedMileageAt\": \"<dateTime>\",\n    \"mileage\": \"<integer>\",\n    \"brand\": \"<string>\",\n    \"model\": \"<string>\",\n    \"logo\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Edits existing car",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carBrandId\": 1,\n  \"carModelId\": 1,\n  \"mileage\": 16\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cars/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Car successfully updated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carBrandId\": \"<integer>\",\n    \"carModelId\": \"<integer>\",\n    \"initialMileage\": \"<integer>\",\n    \"updatedMileageAt\": \"<dateTime>\",\n    \"mileage\": \"<integer>\",\n    \"brand\": \"<string>\",\n    \"model\": \"<string>\",\n    \"logo\": \"<string>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Deletes existing car",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "127084",
+											"description": "(Required) Numeric car id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Car successfully deleted",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"carId\": \"<integer>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cars/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cars",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gets current user cars",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successfully received the data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"carBrandId\": \"<integer>\",\n      \"carModelId\": \"<integer>\",\n      \"initialMileage\": \"<integer>\",\n      \"updatedMileageAt\": \"<dateTime>\",\n      \"mileage\": \"<integer>\",\n      \"brand\": \"<string>\",\n      \"model\": \"<string>\",\n      \"logo\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"carBrandId\": \"<integer>\",\n      \"carModelId\": \"<integer>\",\n      \"initialMileage\": \"<integer>\",\n      \"updatedMileageAt\": \"<dateTime>\",\n      \"mileage\": \"<integer>\",\n      \"brand\": \"<string>\",\n      \"model\": \"<string>\",\n      \"logo\": \"<string>\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						},
+						{
+							"name": "Route or entity not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Creates new car",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"carBrandId\": 1,\n  \"carModelId\": 4,\n  \"mileage\": 100\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Car successfully created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carBrandId\": \"<integer>\",\n    \"carModelId\": \"<integer>\",\n    \"initialMileage\": \"<integer>\",\n    \"updatedMileageAt\": \"<dateTime>\",\n    \"mileage\": \"<integer>\",\n    \"brand\": \"<string>\",\n    \"model\": \"<string>\",\n    \"logo\": \"<string>\"\n  }\n}"
+						},
+						{
+							"name": "Bad request error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						},
+						{
+							"name": "Route or entity not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carBrandId\": \"<integer>\",\n  \"carModelId\": \"<integer>\",\n  \"mileage\": \"<integer>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cars"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "expenses",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Gets an expense by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/expenses/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>",
+											"description": "(Required) Numeric expense id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carId\": \"<integer>\",\n    \"reportedAt\": \"<date>\",\n    \"mileage\": \"<integer>\",\n    \"liters\": \"<float>\",\n    \"totalCost\": \"<float>\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Edits an expense",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/expenses/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>",
+											"description": "(Required) Numeric expense id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expense successfully updated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carId\": \"<integer>\",\n    \"reportedAt\": \"<date>\",\n    \"mileage\": \"<integer>\",\n    \"liters\": \"<float>\",\n    \"totalCost\": \"<float>\"\n  }\n}"
+								},
+								{
+									"name": "Bad request error",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Removes an expense",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/expenses/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "<integer>",
+											"description": "(Required) Numeric expense id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Expense successfully deleted",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"expenseId\": \"<integer>\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/expenses/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"expenses",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gets all expenses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/expenses?carId=<integer>&page=<integer>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"expenses"
+							],
+							"query": [
+								{
+									"key": "carId",
+									"value": "<integer>",
+									"description": "(Required) Numeric car id"
+								},
+								{
+									"key": "page",
+									"value": "<integer>",
+									"description": "(Required) Page number"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successfully received the data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/expenses?carId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									],
+									"query": [
+										{
+											"key": "carId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"carId\": \"<integer>\",\n      \"reportedAt\": \"<date>\",\n      \"mileage\": \"<integer>\",\n      \"liters\": \"<float>\",\n      \"totalCost\": \"<float>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"carId\": \"<integer>\",\n      \"reportedAt\": \"<date>\",\n      \"mileage\": \"<integer>\",\n      \"liters\": \"<float>\",\n      \"totalCost\": \"<float>\"\n    }\n  ],\n  \"currentPage\": \"<integer>\",\n  \"totalItems\": \"<integer>\"\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/expenses?carId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									],
+									"query": [
+										{
+											"key": "carId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						},
+						{
+							"name": "Route or entity not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/expenses?carId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									],
+									"query": [
+										{
+											"key": "carId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Creates an expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"carId\": 126657,\n  \"reportedAt\": \"2024-04-23T00:00:00.000Z\",\n  \"mileage\": 20,\n  \"liters\": 2,\n  \"totalCost\": 3000\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/expenses",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"expenses"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expense successfully created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/expenses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"carId\": \"<integer>\",\n    \"reportedAt\": \"<date>\",\n    \"mileage\": \"<integer>\",\n    \"liters\": \"<float>\",\n    \"totalCost\": \"<float>\"\n  }\n}"
+						},
+						{
+							"name": "Bad request error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/expenses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"error\",\n  \"message\": \"Bad request\"\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/expenses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						},
+						{
+							"name": "Route or entity not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"carId\": \"<integer>\",\n  \"reportedAt\": \"<date>\",\n  \"mileage\": \"<integer>\",\n  \"liters\": \"<float>\",\n  \"totalCost\": \"<float>\",\n  \"forceMileage\": false\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/expenses",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"expenses"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "instructions",
+			"item": [
+				{
+					"name": "{id}",
+					"item": [
+						{
+							"name": "Gets an instruction by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/instructions/:id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"instructions",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Successfully received the data",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/instructions/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"instructions",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"error\",\n  \"data\": {\n    \"id\": \"<integer>\",\n    \"filename\": \"<string>\",\n    \"description\": \"<string>\",\n    \"carBrandId\": \"<integer>\",\n    \"carModelId\": \"<integer>\"\n  }\n}"
+								},
+								{
+									"name": "User is not logged in",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/instructions/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"instructions",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								},
+								{
+									"name": "Route or entity not found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/instructions/:id",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"instructions",
+												":id"
+											],
+											"variable": [
+												{
+													"key": "id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gets all instructions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/instructions?carBrandId=<integer>&carModelId=<integer>&page=<integer>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"instructions"
+							],
+							"query": [
+								{
+									"key": "carBrandId",
+									"value": "<integer>",
+									"description": "(Required) Numeric car brand id"
+								},
+								{
+									"key": "carModelId",
+									"value": "<integer>",
+									"description": "(Required) Numeric car model id"
+								},
+								{
+									"key": "page",
+									"value": "<integer>",
+									"description": "(Required) Page number"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successfully received the data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/instructions?carBrandId=<integer>&carModelId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"instructions"
+									],
+									"query": [
+										{
+											"key": "carBrandId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car brand id"
+										},
+										{
+											"key": "carModelId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car model id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"data\": [\n    {\n      \"id\": \"<integer>\",\n      \"filename\": \"<string>\",\n      \"description\": \"<string>\",\n      \"carBrandId\": \"<integer>\",\n      \"carModelId\": \"<integer>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"filename\": \"<string>\",\n      \"description\": \"<string>\",\n      \"carBrandId\": \"<integer>\",\n      \"carModelId\": \"<integer>\"\n    }\n  ],\n  \"currentPage\": \"<integer>\",\n  \"totalItems\": \"<integer>\"\n}"
+						},
+						{
+							"name": "User is not logged in",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/instructions?carBrandId=<integer>&carModelId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"instructions"
+									],
+									"query": [
+										{
+											"key": "carBrandId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car brand id"
+										},
+										{
+											"key": "carModelId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car model id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						},
+						{
+							"name": "Route or entity not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/instructions?carBrandId=<integer>&carModelId=<integer>&page=<integer>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"instructions"
+									],
+									"query": [
+										{
+											"key": "carBrandId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car brand id"
+										},
+										{
+											"key": "carModelId",
+											"value": "<integer>",
+											"description": "(Required) Numeric car model id"
+										},
+										{
+											"key": "page",
+											"value": "<integer>",
+											"description": "(Required) Page number"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"ok\",\n  \"message\": \"Not authenticated\"\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://qauto.forstudy.space/api"
+		}
+	]
+}
